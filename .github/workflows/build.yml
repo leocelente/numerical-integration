@@ -1,0 +1,30 @@
+name: "Build and Test"
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    env:
+        CTEST_OUTPUT_ON_FAILURE: ON
+        CTEST_PARALLEL_LEVEL: 2
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Run Build"
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        conan install ..
+        cmake --build . --config Release --target my_project
+        ./build/bin/my_project
+        
+    - name: "Run tests" 
+      run: |
+        cd build
+        cmake ..
+        conan install ..
+        cmake --build . --config Debug --target my_project-tests
+        ./build/bin/my_project-tests
