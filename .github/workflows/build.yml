@@ -12,6 +12,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: "Tools"
+      run: |
+      pip3 install conan
+      conan --version
+      cmake --version
+
     - name: "Run Build"
       run: |
         mkdir build
