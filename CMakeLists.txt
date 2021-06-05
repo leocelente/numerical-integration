@@ -6,7 +6,7 @@ project(MyProject)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Conan 
-add_definitions("-std=c++20")
+add_definitions("-std=c++2a")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
