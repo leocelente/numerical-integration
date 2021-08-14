@@ -11,7 +11,6 @@ int main(int const argc, char *argv[]) {
 	constexpr auto dt = 0.01f;
 	constexpr auto N = static_cast<int>((end - start) / dt);
 
-  // std::array<Step<float>, N> data{};
 	auto data = std::make_unique<std::array<Step<float>, N>>();
 
   std::generate(
