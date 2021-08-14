@@ -17,6 +17,7 @@ jobs:
         pip3 install conan
         conan --version
         cmake --version
+        sudo apt-get install -y libtbb-dev
 
     - name: "Run Build"
       run: |
