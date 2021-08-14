@@ -9,13 +9,19 @@ int main(int const argc, char *argv[]) {
 	std::array<Step<float>, time.size()> data{};
 	std::generate(time.begin(), time.end(), [x = 0.f]() { return x + .1f; });
 
+  std::array<Step<float>, N> data{};
+	std::generate(
+	  data.begin(), data.end(), [dt, s = Step<float>{}]() mutable {
+		  s.time += dt;
+		  return s;
+	  });
 
 	auto df = [](auto t) {
-		Step<float> delta = { { 2.f * t }, { 0.f } };
+		Step<float> delta = { t, { 2.f * t }, { 0.f } };
 		return delta;
 	};
 
-	integrate(df, time.cbegin(), time.cend(), data.begin());
+	integrate(df, data.begin(), data.end(), dt);
 
 	std::for_each(data.begin(), data.end(), [](auto step) {
 		step.print();
