@@ -4,10 +4,12 @@
 
 #include "module.hpp"
 
+
 int main(int const argc, char *argv[]) {
-	std::array<float, 100000> time{};
-	std::array<Step<float>, time.size()> data{};
-	std::generate(time.begin(), time.end(), [x = 0.f]() { return x + .1f; });
+  constexpr auto start = 0.f;
+  constexpr auto end = 5.f;
+	constexpr auto dt = 0.1f;
+	constexpr auto N = static_cast<int>((end - start) / dt);
 
   std::array<Step<float>, N> data{};
 	std::generate(
