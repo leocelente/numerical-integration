@@ -30,7 +30,6 @@ jobs:
     - name: "Run tests" 
       run: |
         cd build
-        conan install ..
         cmake .. -DCMAKE_BUILD_TYPE=Release
         cmake --build . --config Release --target my_project-tests
         ./bin/my_project-tests
