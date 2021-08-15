@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: "Tools"
+    - name: "Dpendencies"
       run: |
         pip3 install conan
         conan --version
@@ -23,14 +23,14 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake ..
-        cmake --build . --config Release --target my_project
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+        cmake --build . --config Debug --target my_project
         ./bin/my_project
         
     - name: "Run tests" 
       run: |
         cd build
         conan install ..
-        cmake ..
-        cmake --build . --config Debug --target my_project-tests
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+        cmake --build . --config Release --target my_project-tests
         ./bin/my_project-tests
