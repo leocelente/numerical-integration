@@ -23,7 +23,6 @@ jobs:
       run: |
         mkdir build
         cd build
-        conan install ..
         cmake ..
         cmake --build . --config Release --target my_project
         ./bin/my_project
