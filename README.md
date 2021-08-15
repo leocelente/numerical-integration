@@ -36,7 +36,6 @@ see around. To accomplish this I made heavy use of the STL algorithms.
 ```bash
 mkdir build
 cd build
-conan install ..
 cmake .. 
 cmake --build . --config Debug
 ```
