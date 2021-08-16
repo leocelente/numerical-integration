@@ -16,7 +16,7 @@ probing. This time I'm keeping everything that gets touched on the main loop adj
 improve cache utilization. 
 
 The other key design aspect is the use of good third-party and the STL. What really motivated me
-to do this was seeing integration as (what in Haskell we would call) a fold right. With that idea
+to do this was seeing integration as (what in Haskell we would call) a left fold. With that idea
 was also the wish to make this implementation succinctly, (almost) like the functional programs you 
 see around. To accomplish this I made heavy use of the STL algorithms.
 
