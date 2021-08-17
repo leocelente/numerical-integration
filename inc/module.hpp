@@ -37,16 +37,16 @@ Step<T> operator+(Step<T> const &l, Step<T> const &r) noexcept {
 	return c;
 }
 
-template<class T> Step<T> operator*(T a, Step<T> const &r) noexcept {
+template<class T, class I> Step<T> operator*(I a, Step<T> const &r) noexcept {
 	auto y = r;
 	std::transform(
 	  r.state.cbegin(), r.state.cend(), y.state.begin(), [&a](auto s) {
-		  return a * s;
+		  return static_cast<T>(a) * s;
 	  });
 	return y;
 }
 
-template<class T> Step<T> operator*(Step<T> const &l, T a) noexcept {
+template<class T, class I> Step<T> operator*(Step<T> const &l, I a) noexcept {
 	return a * l;
 }
 
@@ -59,12 +59,12 @@ void integrate(Function f, ForwardIt first, ForwardIt last, T const dt) {
 	  [&f, &dt, i = first](auto prev, auto step) mutable {
 		  auto next = prev + dt * f(step);
 		  auto k1 = f(prev);
-		  prev.time += dt * 0.5f;
-		  auto k2 = f(prev + k1 * dt * 0.5f);
-		  auto k3 = f(prev + k2 * dt * 0.5f);
-		  prev.time += dt * 0.5f;
+		  prev.time += dt * 0.5;
+		  auto k2 = f(prev + k1 * dt * 0.5);
+		  auto k3 = f(prev + k2 * dt * 0.5);
+		  prev.time += dt * 0.5;
 		  auto k4 = f(prev + k3 * dt);
-		  auto k = (1.f / 6) * (k1 + 2.f * k2 + 2.f * k3 + k4);
+		  auto k = (1. / 6) * (k1 + 2. * k2 + 2. * k3 + k4);
 		  *i++ = next;
 		  return next;
 	  });
