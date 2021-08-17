@@ -26,7 +26,7 @@ template<class T> struct Step {
 };
 
 template<class T>
-Step<T> operator+(Step<T> const &l, Step<T> const &r) noexcept {
+constexpr Step<T> operator+(Step<T> const &l, Step<T> const &r) noexcept {
 	Step<T> c{ r };
 	std::transform(std::execution::par_unseq,
 	  l.state.cbegin(),
@@ -37,7 +37,8 @@ Step<T> operator+(Step<T> const &l, Step<T> const &r) noexcept {
 	return c;
 }
 
-template<class T, class I> Step<T> operator*(I a, Step<T> const &r) noexcept {
+template<class T, class I>
+constexpr Step<T> operator*(I a, Step<T> const &r) noexcept {
 	auto y = r;
 	std::transform(
 	  r.state.cbegin(), r.state.cend(), y.state.begin(), [&a](auto s) {
@@ -46,13 +47,14 @@ template<class T, class I> Step<T> operator*(I a, Step<T> const &r) noexcept {
 	return y;
 }
 
-template<class T, class I> Step<T> operator*(Step<T> const &l, I a) noexcept {
+template<class T, class I>
+constexpr Step<T> operator*(Step<T> const &l, I a) noexcept {
 	return a * l;
 }
 
 
 template<class T, class ForwardIt, class Model>
-void simulate(Model model, ForwardIt first, ForwardIt last, T const dt) {
+constexpr void simulate(Model model, ForwardIt first, ForwardIt last, T const dt) {
 	std::accumulate(first,
 	  last,
 	  Step<T>{},
