@@ -19,18 +19,18 @@ int main(int const argc, char *argv[]) {
 		  return s;
 	  });
 
-	auto df = [](auto t) {
-		Step<float> delta = { t, { 2.f * t }, { 0.f } };
-		return delta;
-	};
+  auto df = [](auto Input) {
+	  Step<float> delta = { Input.time, { 2.f * Input.time }, { 0.f } };
+	  return delta;
+  };
 
-	integrate(df, data->begin(), data->end(), dt);
+  integrate(df, data->begin(), data->end(), dt);
 
-	std::for_each(data->begin(), data->end(), [](auto step) {
-		step.print();
-		fmt::print("\n");
-	});
+  std::for_each(data->begin(), data->end(), [](auto step) {
+	  step.print();
+	  fmt::print("\n");
+  });
 
 
-	return 0;
+  return 0;
 }

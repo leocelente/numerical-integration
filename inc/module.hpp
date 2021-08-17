@@ -57,7 +57,7 @@ void integrate(Function f, ForwardIt first, ForwardIt last, T const dt) {
 	  last,
 	  Step<T>{},
 	  [&f, &dt, i = first](auto prev, auto step) mutable {
-		  auto next = prev + dt * f(step.time);
+		  auto next = prev + dt * f(step);
 		  *i++ = next;
 		  return next;
 	  });
