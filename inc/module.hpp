@@ -51,19 +51,19 @@ template<class T, class I> Step<T> operator*(Step<T> const &l, I a) noexcept {
 }
 
 
-template<class T, class ForwardIt, class Function>
-void integrate(Function f, ForwardIt first, ForwardIt last, T const dt) {
+template<class T, class ForwardIt, class Model>
+void simulate(Model model, ForwardIt first, ForwardIt last, T const dt) {
 	std::accumulate(first,
 	  last,
 	  Step<T>{},
-	  [&f, &dt, i = first](auto prev, auto step) mutable {
-		  auto next = prev + dt * f(step);
-		  auto k1 = f(prev);
+	  [&model, &dt, i = first](auto prev, auto step) mutable {
+		  auto next = prev + dt * model(step);
+		  auto k1 = model(prev);
 		  prev.time += dt * 0.5;
-		  auto k2 = f(prev + k1 * dt * 0.5);
-		  auto k3 = f(prev + k2 * dt * 0.5);
+		  auto k2 = model(prev + k1 * dt * 0.5);
+		  auto k3 = model(prev + k2 * dt * 0.5);
 		  prev.time += dt * 0.5;
-		  auto k4 = f(prev + k3 * dt);
+		  auto k4 = model(prev + k3 * dt);
 		  auto k = (1. / 6) * (k1 + 2. * k2 + 2. * k3 + k4);
 		  *i++ = next;
 		  return next;

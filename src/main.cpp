@@ -24,7 +24,7 @@ int main(int const argc, char *argv[]) {
 	  return delta;
   };
 
-  integrate(df, data->begin(), data->end(), dt);
+  simulate(df, data->begin(), data->end(), dt);
 
   std::for_each(data->begin(), data->end(), [](auto step) {
 	  step.print();
